@@ -1,0 +1,15 @@
+.homepage-section{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.homepage-card{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.post-comment-field{
+    width: 500px;
+}

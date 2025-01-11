@@ -1,0 +1,10 @@
+.login-card-section{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.login-card{
+    padding: 50px
+
+}

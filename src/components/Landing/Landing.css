@@ -1,0 +1,85 @@
+.landing-section{
+    margin-top: 100px;
+
+}
+
+.landing-text-section{
+    margin-left: 150px;
+    
+}
+
+.button-section{
+    width: 70%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.landing-button{
+    width: 150px;
+    height: 40px;
+}
+
+.login-btn{
+    margin-left: 30px;
+}
+
+.landing-title{
+    font-family: "Poppins";
+    font-weight: 500;
+    font-size: 80px;
+    margin-bottom: 0px;
+}
+
+.landing-subtitle{
+    font-family: "Poppins";
+    font-weight: 300;
+    font-size: 40px;
+}
+
+
+.fadeLeft{
+    animation: fadeLeft 2s;
+}
+
+@keyframes fadeLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+} 
+
+.fadeRight{
+    animation: fadeRight 2s;
+}
+
+@keyframes fadeRight {
+    0% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+} 
+
+#depression{
+    color: #03a9f4;
+}
+
+#depressure{
+    color: #f50057;
+    font-weight: 300;
+}
+
+#depressure-image{
+    width: 75%;
+    height: 75%;
+
+}
