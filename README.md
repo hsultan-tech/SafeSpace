@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+# Safespace
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Safespace is a community platform focused on mental health discussions, built with a toxicity filter powered by machine learning. Users can create posts, reply to others, and engage in conversations while ensuring harmful content is filtered out in real time.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+Safespace provides a safe and structured environment for users to share and support each other:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- User authentication and profile creation  
+- Post creation and threaded comments  
+- Real-time toxicity detection for all content  
+- Automatic filtering of harmful, threatening, or hateful language  
+- Secure handling of data with Firebase  
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+At the core of Safespace is a **TensorFlow.js toxicity detection model** that runs directly in the browser. This means every message is checked locally in real time, without needing to send content to an external server for classification. It's a lightweight but powerful way to keep the community safe while keeping the experience fast and private. The model is built on the Universal Sentence Encoder and trained on millions of labeled comments, giving it strong accuracy across a wide range of harmful language.  
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Architecture Overview
 
-### `npm run build`
+The project is structured with a **React frontend** and a **Firebase backend**. A TensorFlow.js model runs client-side to classify toxic content in user submissions before it is displayed.  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The frontend is implemented entirely in **React**, using **Material UI** for components and styling. Posts and comments are structured as reusable components that communicate with Firebase for persistence.  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The backend uses **Firebase Authentication** for secure sign-up and login, along with **Firestore** for storing user data and posts. **Firebase Functions** provide serverless logic for extending functionality and handling secure operations.  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The toxicity detection system is a **TensorFlow.js model** trained on the Civil Comments dataset (~2M labeled comments) and built on top of the Universal Sentence Encoder. Predictions flag content that contains:
+- Threatening language
+- Insults
+- Obscenities
+- Identity-based hate
+- Sexually explicit content
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Tech Stack
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Frontend**: React, Material UI  
+- **Backend**: Firebase (Auth, Firestore, Functions)  
+- **Machine Learning**: TensorFlow.js, Universal Sentence Encoder, Civil Comments dataset  
+- **Hosting/Deployment**: Firebase Hosting  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Repository Structure
 
-## Learn More
+```plaintext
+Safespace/
+├── public/                   # Static assets
+├── src/
+│   ├── components/           # React components (posts, comments, forms, etc.)
+│   ├── pages/                # Main views (home, profile, login)
+│   ├── services/             # Firebase API integration
+│   ├── utils/                # Helper functions and model utilities
+│   └── App.js                # Main React entry point
+├── functions/                # Firebase functions for backend logic
+│   ├── index.js
+│   └── toxicity.js           # TensorFlow.js model integration
+├── package.json              # Project dependencies
+├── firebase.json             # Firebase hosting configuration
+└── README.md
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Installation & Setup
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Prerequisites
+- Node.js 18+
+- Firebase CLI (`npm install -g firebase-tools`)
+- A Firebase project with Authentication and Firestore enabled
 
-### Code Splitting
+### Clone & Install
+```bash
+git clone <repository-url>
+cd safespace
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Environment Variables
+Create a `.env` file in the project root with your Firebase config values:
 
-### Analyzing the Bundle Size
+```env
+REACT_APP_API_KEY=<your-api-key>
+REACT_APP_AUTH_DOMAIN=<your-auth-domain>
+REACT_APP_PROJECT_ID=<your-project-id>
+REACT_APP_STORAGE_BUCKET=<your-storage-bucket>
+REACT_APP_MESSAGING_SENDER_ID=<your-sender-id>
+REACT_APP_APP_ID=<your-app-id>
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Running Locally
+```bash
+npm start
+```
+Frontend will be available at http://localhost:3000.
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+For Firebase Functions:
+```bash
+cd functions
+npm install
+firebase emulators:start
+```
 
 ### Deployment
+To deploy both the frontend and backend:
+```bash
+firebase deploy
+```
+This will deploy hosting, authentication, Firestore, and functions as configured in firebase.json.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Development Notes
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- TensorFlow.js runs in-browser, ensuring toxic content is filtered before rendering.
+- Running the model client-side keeps moderation fast and private.
+- Firebase Auth ensures secure sign-in and user identity handling.
+- Posts and comments are stored in Firestore and linked to user IDs.
+- Firebase Functions can be extended for additional features like notifications or third-party integrations.
